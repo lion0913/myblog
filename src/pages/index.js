@@ -1,15 +1,15 @@
 import { Link } from "gatsby";
 import React from "react";
-import Head from "../components/Head"
+import Layout from "../components/Layout";
 
 // markup
 function IndexPage() {
   return (
     <main>
-      <title>About Me</title>
-      <Head />
-      <h1>About Me</h1>
-      <p>Hi there! I'm the proud creator of this site, which I built with Gatsby.</p>
+      <title>Index Page</title>
+      <Layout>
+        <h1>Home Page</h1>
+      </Layout>
     </main>
   )
 }
