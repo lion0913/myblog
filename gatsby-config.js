@@ -1,10 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `dajung`,
-    siteUrl: `https://www.yourdomain.tld`,
-  },
-  siteMetadata: {
-    title: "My First Gatsby Site",
+    title: "박다정이 개발중인 블로그",
   },
   plugins: ["gatsby-plugin-image",
   "gatsby-plugin-sharp",],

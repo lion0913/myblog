@@ -1,4 +1,5 @@
-import { Link } from "gatsby";
+
+import { Link, useStaticQuery, graphql } from "gatsby";
 import React from "react";
 
 import {
@@ -7,19 +8,52 @@ import {
     navLinks,
     navLinkItem,
     navLinkText,
+    siteTitle,
   } from "./Layout.module.css";
 
-function Layout({ children }) {
+function Layout({ pageTitle, children }) {
+
+  const data = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+          description
+        }
+      }
+    }
+  `);
+
   return (
     <div class={container}>
-        <main>
-        <div style={{ display: "flex", gap: 10 }}>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-        </div>
+      <title>
+        {pageTitle} | {data.site.siteMetadata.title}
+      </title>
+      <header className={siteTitle}>{data.site.siteMetadata.title}</header>
+      <nav>
+        <ul className={navLinks}>
+          <li className={navLinkItem}>
+            <Link className={navLinkText} to="/">
+              Home
+            </Link>
+          </li>
+          <li className={navLinkItem}>
+            <Link className={navLinkText} to="/about">
+              About
+            </Link>
+          </li>
+          <li className={navLinkItem}>
+            <Link className={navLinkText} to="/blog">
+              Blog
+            </Link>
+          </li>
+        </ul>
+      </nav>
+      <main>
+        <h1 className={pageTitle}></h1>
         {children}
         <div>-박다정 씀.</div>
-        </main>
+      </main>
     </div>
   );
 }
