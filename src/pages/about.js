@@ -3,13 +3,12 @@ import Layout from "../components/Layout";
 
 const AboutPage = () => {
   return (
-    <main>
-      <title>About Page</title>
-
-      <Layout>
-        <h1>About Page</h1>
-      </Layout>
-    </main>
+    <Layout pageTitle="About Me">
+        <h1>About me</h1>
+        <p>
+            안녕 나는 박다정
+        </p>
+    </Layout>
   );
 };
 
