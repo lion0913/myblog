@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: "박다정이 개발중인 블로그",
+    title: "dajung",
   },
   plugins: [
     "gatsby-plugin-image",
