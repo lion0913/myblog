@@ -1,0 +1,184 @@
+---
+title: "Yet Another Post"
+date: "2021-07-25"
+hero_image: "./jane-almon-7rriIaBH6JY-unsplash.jpeg"
+hero_image_alt: "A white pitbull wearing big googly-eye glasses"
+hero_image_credit_text: "Jane Almon"
+hero_image_credit_link: "https://unsplash.com/photos/7rriIaBH6JY"
+---
+
+# [3주차] 9일차
+
+# C언어 기초
+
+### 이중포인터란?
+
+- **포인터의 주소**를 저장하는 변수
+- 선언 방법 : `자료형** 포인터이름;`
+
+```c
+//이중 포인터 사용방법
+int x = 20;
+int* p = &x;
+int** pp = &p;
+**pp = 50;
+printf("change 함수 호출한 후의 x : %d\n", x);
+
+//출력 : change 함수 호출한 후의 x : 50
+```
+
+- 사용하는 이유?
+    
+    : 값을 직접 넘겨주는 것 보다 주소값을 넘겨줌으로써 **시간적, 리소스적** 장점이 있다.
+    
+      ex) git
+    
+
+### 포인터를 사용하는 이유? == 객체 변수에 왜 레퍼런스를 저장하나요?
+
+- 메모리에 직접 접근이 가능하기 때문에 주소를 참조해서 다양한 자료형 변수들의 접근과 조작이 편리하다.
+- 데이터들을 공유할 수 있고, 이를 통해 **공간을 효율적으로 사용**할 수 있다.
+
+# GIT, GITHUB
+
+### +) git branch 배우기 사이트!
+
+[Learn Git Branching](https://learngitbranching.js.org/?locale=ko)
+
+### GIT 사용 흐름
+
+![Alt text](../src/images/day9-1.png)
+
+`workspace` : 현재 작업중인 장소
+
+`index(=stage)` : workspace의 수정된 소스를 저장하는 장소
+
+`local repository` : commit까지의 저장소
+
+`remote repository` : 원격 저장소,  clone을 통해 workspace로 가져올 수 있음
+
+출처 : osteele.com
+
+### git fetch랑 pull 차이
+
+- fetch
+    - remote repository의 커밋들을 local repository로 가져온다.
+    - 자동 merge가 아니기 때문에 본인이 직접 확인 후 merge 해줘야함
+- pull
+    - remote repository의 정보를 가져오면서 local branch에 병합까지 수행해주는 명령어
+    - conflict가 발생할 수 있음
+
+### git은 commit 할때 파일내용을 sha1로 암호화
+
+→ 새로 추가한 파일이 이전 commit된 파일과 동일한 내용일때 object에 파일을 추가하지 않고 .git/index에 파일명 저장(용량을 적게 관리하기 위해)
+
+object 파일에서 리눅스 최대 파일 저장개수를 넘어서면 느려지기 때문에 prefix로 디렉토리(=폴더)를 구분
+
+### commit시 일어나는 .git디렉토리 내부구조
+
+![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%201.png)
+
+• [출처 : https://it-eldorado.tistory.com/4](https://it-eldorado.tistory.com/4)
+
+1️⃣ **첫번째 commit**
+
+→ index의 복사본이 생성(tree, 현재 폴더에 대한 파일내용이 snapshot의 형태로 저장) 
+
+→ commit 1 생성(tree를 가리키고 있음)
+
+→ head로부터 연결된 branch가 새로생긴 commit을 가리킴
+
+![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%202.png)
+
+2️⃣ **한번 더 commit**
+
+→ index의 복사본 생성(tree2)
+
+→ commit 2 생성(tree2를 가리킴)
+
+→ commit 2는 head가 가리키고 있었던 commit1을 가리키게 됨
+
+→ head로부터 연결된 branch는 새로생긴 commit2를 가리킴
+
+![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%203.png)
+
+### git conflict
+
+1. 충돌이란?
+    
+    두개의 파일을 병합하는 과정에서 생기는 문제
+    
+    파일이 같고 **수정한 부분 또한 같은 경우** 발생
+    
+2. conflict된 파일 내용
+    
+    ```
+    <<<<<HEAD(내가 건드린 내용)
+    
+    a.text 내용????
+    
+    =======
+    
+    a.text 내용!!!!!
+    
+    >>>>>>41fe5f203djfk(원격지 최신 작업본 내용)
+    ```
+    
+
+1. conflict 해결 방법
+    
+    : 충돌이 일어난 파일 수정 후 master에 merge!
+    
+2. 충돌 발생, 해결까지의 과정
+    1.  작업A에서 a.txt에 `“안녕!”` 생성
+        
+        ![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%204.png)
+        
+    2. 작업B에서 a.txt에 `“안녕!?”` 작성 후 push
+        
+        ![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%205.png)
+        
+    3. 작업B에서의 log
+        
+        ![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%206.png)
+        
+    4. 작업A에서 다시 a.txt를 `“안녕!!!!!”` 으로 수정
+        
+        ![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%207.png)
+        
+    5. 작업A에서의 log
+        
+        ![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%208.png)
+        
+    6. push하면 에러 발생
+        
+        ![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%209.png)
+        
+        이유 : 원격저장소에 올라가 있는 파일과 동일한 위치에 다른 내용이 적혀있기 때문. 
+        
+    7. 해결법 : pull하고 conflict된 부분 수정해주기
+        
+        ![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%2010.png)
+        
+        ![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%2011.png)
+        
+        ![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%2012.png)
+        
+    8. 수정완료 후 add, commit, push
+        
+        ![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%2013.png)
+        
+    9. 수정 완료후의 log
+        
+        ![Untitled](%5B3%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1%5D%209%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1%2045fc225a04ae437da171311549d267a5/Untitled%2014.png)
+        
+    
+
+### git blog 만들기
+
+- gatsby tool을 이용해서 깃블로그 만듦
+- gatsby란?
+    - 정적 사이트 생성기
+    - react + graphQL
+- gatsby 사용 이유
+    - 깃허브에서 정적 사이트 호스팅 지원해줌.(free)
